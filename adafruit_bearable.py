@@ -163,7 +163,7 @@ class Bearable:
         
     def _pack_leds(self):
         return [(int(self._leds[i] * self._convertfactor) & 0b1111) << 4
-                | (int(self._leds[i+1] * self._convertfactor) & 0b1111) for i in range(0,self._n,2)]
+                | (int(self._leds[i + 1] * self._convertfactor) & 0b1111) for i in range(0, self._n, 2)]
 
     def show(self):
         """Displays any set pixels.
