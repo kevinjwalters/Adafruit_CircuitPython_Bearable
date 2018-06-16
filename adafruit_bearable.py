@@ -1,6 +1,6 @@
 # Pimoroni Bearable(s) library for CircuitPython
 
-# MIT License
+# The MIT License (MIT)
 
 # Copyright (c) 2018 Kevin J. Walters
 
@@ -21,7 +21,36 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+"""
+`Adafruit_Bearable`
+====================================================
 
+Driver for the Pimoroni Bearable(s) bear and fox badges.
+
+* Author(s): Kevin J. Walters
+
+Implementation Notes
+--------------------
+
+Inspired by Pimoroni and:
+
+ * Phil Underwood hacking the Bareables Badge: https://lorrainbow.wordpress.com/2017/11/18/guest-blogger-phil-underwood-hacking-the-bareables-badge/
+ * Raspberry Pi bearables library: https://github.com/sandyjmacdonald/bearables
+
+**Hardware:**
+ * Pimoroni Bearables Bear kit: https://shop.pimoroni.com/products/bearables-bear-kit 
+ * Pimoroni Bearables Fox kit: https://shop.pimoroni.com/products/bearables-fox-kit
+
+**Software and Dependencies:**
+
+* Adafruit CircuitPython firmware for the supported boards:
+  https://github.com/adafruit/circuitpython/releases
+
+ * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+
+"""
+
+# imports
 import time
 from adafruit_bus_device.i2c_device import I2CDevice
 
