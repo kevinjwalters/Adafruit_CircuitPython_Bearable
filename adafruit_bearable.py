@@ -43,7 +43,6 @@ _BEAR_GET_ANALOGUE1    = const(0x07)
 _BEAR_SET_PATTERN      = const(0x08)
 # pylint: enable=bad-whitespace
 
-# TODO - get rid of cut and paste for i2c command sending
 
 class Bearable:
     """
@@ -74,6 +73,7 @@ class Bearable:
         self._retrypause = retrypause
 
         self._device = I2CDevice(i2c, address)
+        # red LED bellow chin is index 0 and order is counter-clockwise
         self._leds = [0.0] * self._n
         # empirical testing suggests this is 8
         # see https://github.com/sandyjmacdonald/bearables/issues/1
@@ -83,22 +83,15 @@ class Bearable:
         self._pattern = None
 
     def _set_mode(self, mode):
+        """Sends an i2c command to set the badge's mode if that mode has not already been set.
+        
+        :param int mode: either _BEAR_LED_DIRECT_MODE or _BEAR_LED_PATTERN_MODE.
+        """
         if mode == self._mode:
             return
 
-        errors = 0
         cmd = bytes([_BEAR_SET_MODE, mode])
-        for attempt in range(self._attempts):
-            try:
-                with self._device:
-                    self._device.write(cmd)
-            except Exception as e:
-                errors += 1
-                if errors == self._retries:
-                    raise RuntimeError("i2c last exception after retries: " + repr(e))
-                else:
-                    time.sleep(self._retrypause)
-
+        self._i2cwrite(cmd)
         self._mode = mode
 
     def __setitem__(self, index, val):
@@ -178,19 +171,9 @@ class Bearable:
         self._set_mode(_BEAR_LED_DIRECT_MODE)
         
         cmd = bytes([_BEAR_SET_LEDS] + self._pack_leds())
-        print('bear in the woods')
-        print(' '.join([hex(i) for i in cmd]))
-        errors = 0
-        for attempt in range(self._attempts):
-            try:
-                with self._device:
-                    self._device.write(cmd)
-            except Exception as e:
-                errors += 1
-                if errors == self._retries:
-                    raise RuntimeError("i2c last exception after retries: " + repr(e))
-                else:
-                    time.sleep(self._retrypause)
+        # print('bear in the woods')
+        # print(' '.join([hex(i) for i in cmd]))
+        self._i2cwrite(cmd)
 
     def pattern(self, pattern):
         """Puts bear into pattern mode and sets the pattern (0-11).
@@ -198,17 +181,42 @@ class Bearable:
         self._set_mode(_BEAR_LED_PATTERN_MODE)
         
         cmd = bytes([_BEAR_SET_PATTERN, pattern])
-        print('bear likes a pattern {:d}'.format(pattern))
-        print(' '.join([hex(i) for i in cmd]))
+        # print('bear likes a pattern {:d}'.format(pattern))
+        # print(' '.join([hex(i) for i in cmd]))
+        self._i2cwrite(cmd)
+        self._pattern = pattern
+
+    def _i2cwrite(self, data, *, attempts=None):
         errors = 0
-        for attempt in range(self._attempts):
+        if attempts is None: attempts = self._attempts
+        for attempt in range(attempts):
             try:
                 with self._device:
-                    self._device.write(cmd)
+                    self._device.write(data)
             except Exception as e:
                 errors += 1
                 if errors == self._retries:
                     raise RuntimeError("i2c last exception after retries: " + repr(e))
                 else:
                     time.sleep(self._retrypause)
-        self._pattern = pattern
+
+    def _i2cwriteread(self, wdata, rdata, *, attempts=None):
+        """Send a command down i2c bus and immediately read reply.
+
+        :param bytes wdata: data to write.
+        :param bytearray rdata: size must match reply size.
+        """
+        errors = 0
+        if attempts is None: attempts = self._attempts
+        for attempt in range(attempts):
+            try:
+                with self._device:
+                    self._device.write(wdata)
+                    self._device.readinto(rdata)
+            except Exception as e:
+                errors += 1
+                if errors == self._attempts:
+                    raise RuntimeError("i2c last exception after retries: " + repr(e))
+                else:
+                    time.sleep(self._retrypause)
+
