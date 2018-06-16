@@ -195,7 +195,7 @@ class Bearable:
                     self._device.write(data)
             except Exception as e:
                 errors += 1
-                if errors == self._retries:
+                if errors == self._attempts:
                     raise RuntimeError("i2c last exception after retries: " + repr(e))
                 else:
                     time.sleep(self._retrypause)
