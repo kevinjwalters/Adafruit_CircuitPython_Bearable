@@ -13,7 +13,11 @@ Introduction
     :target: https://travis-ci.org/adafruit/Adafruit_CircuitPython_Bearable
     :alt: Build Status
 
-.. todo:: Describe what the library does.
+Driver for the Pimoroni Bearable(s) bear and fox badges using i2c pads.
+The twelve LEDs are presented as a sequence allowing direct assignment where the brightness
+is represented by a real number up to 1.0.
+The sensor input can also be read and returns an integer between 0-255.
+
 
 Dependencies
 =============
@@ -29,7 +33,26 @@ This is easily achieved by downloading
 Usage Example
 =============
 
-.. todo:: Add a quick, simple example. It and other examples should live in the examples folder and be included in docs/examples.rst.
+This example demonstrates setting the brightness on pixels and reading the sensor value,
+the pins in this case are for the `Gemma M0 <https://www.adafruit.com/product/3501>`_.
+
+.. code-block:: python
+
+    import board
+    import busio
+    import time
+    import adafruit_bearable
+    
+    i2c = busio.I2C(board.D2, board.D0, frequency = 100*1000)
+    bear = adafruit_bearable.Bearable(i2c)
+    brightness = 1.0 
+
+    for i in range(20):
+        bear.fill(brightness)
+        print('sensor input is {:d}'.format(bear.read_pin()))
+        brightness = 1.0 - brightness
+        time.sleep(0.5)
+    bear.pattern(10)   # three spinning
 
 Contributing
 ============

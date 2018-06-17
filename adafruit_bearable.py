@@ -25,7 +25,7 @@
 `Adafruit_Bearable`
 ====================================================
 
-Driver for the Pimoroni Bearable(s) bear and fox badges.
+Driver for the Pimoroni Bearable(s) bear and fox badges using i2c pads.
 
 * Author(s): Kevin J. Walters
 
@@ -75,9 +75,9 @@ _BEAR_SET_PATTERN      = const(0x08)
 
 class Bearable:
     """
-    Driver for the Pimoroni Bearable(s) bear and fox badges.
+    Driver for the Pimoroni Bearable(s) bear and fox badges using i2c pads.
 
-	Throws exceptions for any i2c errors after retries.
+    Throws exceptions for any i2c errors after retries.
     
     :param ~busio.I2C i2c: the busio.I2C object.
     :param int n: The number of leds on the badge, defaults to 12.

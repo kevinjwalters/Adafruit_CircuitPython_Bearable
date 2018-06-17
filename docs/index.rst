@@ -23,14 +23,13 @@ Table of Contents
 .. toctree::
     :caption: Tutorials
 
-.. todo:: Add any Learn guide links here. If there are none, then simply delete this todo and leave
-    the toctree above for use later.
+    A simple example will be published on Instructables <https://www.instructables.com/> shortly...
 
 .. toctree::
     :caption: Related Products
 
-.. todo:: Add any product links here. If there are none, then simply delete this todo and leave
-    the toctree above for use later.
+    Pimoroni Bearables Bear kit <https://shop.pimoroni.com/products/bearables-bear-kit>
+    Pimoroni Bearables Fox kit <https://shop.pimoroni.com/products/bearables-fox-kit>
 
 .. toctree::
     :caption: Other Links
@@ -42,6 +41,7 @@ Table of Contents
     Adafruit Learning System <https://learn.adafruit.com>
     Adafruit Blog <https://blog.adafruit.com>
     Adafruit Store <https://www.adafruit.com>
+    Raspberry Pi bearables library <https://github.com/sandyjmacdonald/bearables>
 
 Indices and tables
 ==================
