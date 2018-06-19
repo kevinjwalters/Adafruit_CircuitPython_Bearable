@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """
-`Adafruit_Bearable`
+`Bearable`
 ====================================================
 
 Driver for the Pimoroni Bearable(s) bear and fox badges using i2c pads.
@@ -55,7 +55,7 @@ import time
 from adafruit_bus_device.i2c_device import I2CDevice
 
 __version__ = "0.0.0-auto.0"
-__repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_Bearable.git"
+__repo__ = "https://github.com/kevinjwalters/CircuitPython_Bearable.git"
 
 
 # i2c commands extracted from

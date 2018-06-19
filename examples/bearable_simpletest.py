@@ -3,7 +3,7 @@
 # tested with CircuitPython 2.2.0 on GEMMA M0 with 2.2k pull-up resistors
 
 # copy this file to Gemma M0 as main.py 
-# needs lib/adafruit_bus_device/i2c_device.mpy and lib/adafruit_bearable.py
+# needs lib/adafruit_bus_device/i2c_device.mpy and lib/bearable.py
 
 # MIT License
 
@@ -30,7 +30,7 @@
 import board
 import busio
 import time
-import adafruit_bearable
+import bearable
 
 sclpin = board.D2
 sdapin = board.D0
@@ -38,7 +38,7 @@ i2c = busio.I2C(sclpin, sdapin, frequency = 100*1000)
 ledcount = 12
 
 # default is auto_write=True
-bear1 = adafruit_bearable.Bearable(i2c)
+bear1 = bearable.Bearable(i2c)
 
 bear1.fill(0.0)
 time.sleep(1) 

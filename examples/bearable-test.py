@@ -3,7 +3,7 @@
 # tested with CircuitPython 2.2.0 on GEMMA M0 with 2.2k pull-up resistors
 
 # copy this file to Gemma M0 as main.py 
-# needs lib/adafruit_bus_device/i2c_device.mpy and lib/adafruit_bearable.py
+# needs lib/adafruit_bus_device/i2c_device.mpy and lib/bearable.py
 
 # MIT License
 
@@ -31,7 +31,7 @@ import board
 import busio
 import time
 import digitalio
-import adafruit_bearable
+import bearable
 
 board_led = digitalio.DigitalInOut(board.D13)
 board_led.direction = digitalio.Direction.OUTPUT
@@ -44,7 +44,7 @@ ledcount = 12
 # TODO - look at test frameworks and hammer this into one
 
 # default is auto_write=True
-bear1 = adafruit_bearable.Bearable(i2c)
+bear1 = bearable.Bearable(i2c)
 
 print('\nfill')
 bear1.fill(0.0)
@@ -96,7 +96,7 @@ except:
 time.sleep(1)
 
 ### now try with auto_write=False
-bear2 = adafruit_bearable.Bearable(i2c, auto_write=False)
+bear2 = bearable.Bearable(i2c, auto_write=False)
 
 print('\nassignment with auto_write=False')
 for i in range(ledcount):

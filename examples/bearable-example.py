@@ -3,7 +3,7 @@
 # tested with CircuitPython 2.2.0 on GEMMA M0 with 2.2k pull-up resistors
 
 # copy this file to Gemma M0 as main.py 
-# needs lib/adafruit_bus_device/i2c_device.mpy and lib/adafruit_bearable.py
+# needs lib/adafruit_bus_device/i2c_device.mpy and lib/bearable.py
 
 # MIT License
 
@@ -31,7 +31,7 @@ import board
 import busio
 import time
 import digitalio
-import adafruit_bearable
+import bearable
 
 board_led = digitalio.DigitalInOut(board.D13)
 board_led.direction = digitalio.Direction.OUTPUT
@@ -41,7 +41,7 @@ sdapin = board.D0
 i2c = busio.I2C(sclpin, sdapin, frequency = 100*1000)
 
 # default is auto_write=True
-bear = adafruit_bearable.Bearable(i2c)
+bear = bearable.Bearable(i2c)
 
 intbrightness = 8  # 8 is max hardware integer value
 incr = -1
