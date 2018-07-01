@@ -222,6 +222,7 @@ class Bearable:
             try:
                 with self._device:
                     self._device.write(data)
+                break  # if here then no exception -> sucess!
             except Exception as e:
                 errors += 1
                 if errors == self._attempts:
@@ -242,6 +243,7 @@ class Bearable:
                 with self._device:
                     self._device.write(wdata)
                     self._device.readinto(rdata)
+                break  # if here then no exception -> sucess!
             except Exception as e:
                 errors += 1
                 if errors == self._attempts:
