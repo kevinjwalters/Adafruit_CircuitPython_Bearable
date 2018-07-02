@@ -54,6 +54,8 @@ the pins in this case are for the `Gemma M0 <https://www.adafruit.com/product/35
         time.sleep(0.5)
     bear.pattern(10)   # three spinning
 
+The other examples can be see on `Instructables: CircuitPython and Bearables Badge: Simple Example <http://www.instructables.com/id/CircuitPython-and-Bearables-Badge-Simple-Example/>`_.
+
 Contributing
 ============
 
