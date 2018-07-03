@@ -1,14 +1,19 @@
 
+### TODO - i still don't understand how to replace each method in a mocked class
+### TODO - call checks - how to test for any object?
+
 import unittest
 from unittest.mock import Mock
 from unittest.mock import MagicMock
+from unittest.mock import patch
+from unittest.mock import call
 
 import sys
-sys.modules['adafruit_bus_device'] = Mock()
-sys.modules['adafruit_bus_device.i2c_device'] = Mock()
+# NOT NEEDED sys.modules['adafruit_bus_device'] = Mock()
+#### MagicMock needed to deal with __enter__ and __exit__
+sys.modules['adafruit_bus_device.i2c_device'] = MagicMock()
 sys.modules['busio'] = Mock()
 
-### TODO - need to create I2CDevice 
 # there may be neater way to do this
 if hasattr(__builtins__, 'absasdfsadf'):
     pass
@@ -20,18 +25,18 @@ import bearable
 import busio
 import bearable
 
-class MockI2C:
-    def __enter__():
-        print('__enter__')
-
-    def __exit__():
-        print('__exit__')
-
-    def write():
-        print('write')
-
-    def readinto():
-        print('readinto')
+#class MockI2C:
+#    def __enter__():
+#        print('__enter__')
+#
+#    def __exit__():
+#        print('__exit__')
+#
+#    def write():
+#        print('write')
+#
+#    def readinto():
+#        print('readinto')
 
 #sclpin = board.D2
 #dapin = board.D0
@@ -61,12 +66,33 @@ buf[:] = map(ord,['A', 'B', 'C', 'D'])
 # needs write and readinto
 
 print('welcome to test')
+reached=0
 
 # default is auto_write=True
 bear1 = bearable.Bearable(mockedi2c)
+
 if type(bear1).__name__ == "Bearable":
     print('all is well')
+print(bearable.I2CDevice.mock_calls[reached:] == [call(666, 21)])
+
+### elements are <class 'unittest.mock._Call'>
+print(bearable.I2CDevice.mock_calls[reached:])
+reached=len(bearable.I2CDevice.mock_calls)
 
 bear1[0] = 1.0
+
+print(bearable.I2CDevice.mock_calls[reached:] == [call().__enter__(), call().write(b'\x00\x11'), call().__exit__(None, None, None), call().__enter__(), call().write(b'\x01\x80\x00\x00\x00\x00\x00'), call().__exit__(None, None, None)])
+
+### elements are <class 'unittest.mock._Call'>
+print(bearable.I2CDevice.mock_calls[reached:])
+reached=len(bearable.I2CDevice.mock_calls)
+
+bear1[1] = 1.0
+print(bearable.I2CDevice.mock_calls[reached:] == [call().__enter__(), call().write(b'\x01\x88\x00\x00\x00\x00\x00'), call().__exit__(None, None, None)])
+
+### elements are <class 'unittest.mock._Call'>
+print(bearable.I2CDevice.mock_calls[reached:])
+reached=len(bearable.I2CDevice.mock_calls)
+
 
 print('goodbye from test')
